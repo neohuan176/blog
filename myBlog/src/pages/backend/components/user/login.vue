@@ -62,7 +62,7 @@
         created(){
             this.$http.post('http://blog.dev/test1')
             .then(response => {
-                console.log(response)
+                console.log(response);
             })
         }
     }
