@@ -36,14 +36,34 @@
         },
         methods: {
             handleSubmit(name) {
+                let _this = this;
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        this.$Message.success('提交成功!');
+                        _this.axios.post('/login', _this.myForm).then(function (response) {
+                            let data = response.data;
+                            if (data.status == 200) {
+                                localStorage.setItem('user', JSON.stringify(data.user));
+                                _this.$Message.success(data.msg)
+                                setTimeout(function () {
+                                    _this.$router.push({path: '/'})
+                                }, 1000);
+                            } else {
+                                    _this.$Message.error(data.msg);
+                            }
+                        }).catch(function (error) {
+                            _this.$Message.error('页面已过期，请刷新!');
+                        });
                     } else {
                         this.$Message.error('表单验证失败!');
                     }
                 })
             }
+        },
+        created(){
+            this.$http.post('http://blog.dev/test1')
+            .then(response => {
+                console.log(response)
+            })
         }
     }
 </script>

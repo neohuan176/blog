@@ -5,6 +5,15 @@ import App from './App'
 import router from './router'
 import iView from 'iview'
 import './assets/css/index.less'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+Vue.use(VueAxios, axios);
+Vue.axios.defaults.headers.common = {
+  // 'X-CSRF-TOKEN': window.Laravel.csrfToken,
+  'X-Requested-With': 'XMLHttpRequest'
+};
+Vue.axios.defaults.baseURL = "http://blog.dev";
 
 Vue.use(iView)
 Vue.config.productionTip = false
